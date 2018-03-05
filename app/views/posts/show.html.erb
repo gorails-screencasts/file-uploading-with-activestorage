@@ -1,0 +1,20 @@
+<%= image_tag @post.header_image.variant(resize: "400x400") %>
+
+<h1><%= @post.title %></h1>
+<%= link_to 'Edit', edit_post_path(@post) %>
+
+<%= sanitize @post.body %>
+
+<div>
+  <% @post.uploads.each do |upload| %>
+    <% if upload.variable? %>
+      <%= link_to image_tag(upload.variant(resize: "400x400")), upload %>
+    <% elsif upload.previewable? %>
+      <%= link_to image_tag(upload.preview(resize: "400x400")), rails_blob_path(upload, disposition: :attachment) %>
+    <% elsif upload.image? %>
+      <%= link_to image_tag(upload, width: 400), upload %>
+    <% else %>
+      <%= link_to upload.filename, rails_blob_path(upload, disposition: :attachment) %>
+    <% end %>
+  <% end %>
+</div>
