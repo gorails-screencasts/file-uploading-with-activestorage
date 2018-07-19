@@ -13,6 +13,7 @@
 
   <div class="form-group">
     <%= form.label :header_image %>
+    <%= form.hidden_field :header_image, value: form.object.header_image.signed_id %>
     <%= form.file_field :header_image, class: "form-control" %>
   </div>
 
